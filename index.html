@@ -218,24 +218,29 @@
 
       <article class="project-card reveal">
         <div class="project-top">
-          <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>
-          <div class="project-links">
+            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M19 11v1a7 7 0 0 1-14 0v-1M12 19v3M8 22h8"/></svg>
+            <div class="project-links">
             <a href="https://github.com/Michael59-hub/tochi-voice-gateway" target="_blank" rel="noopener" aria-label="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
-          </div>
+            </div>
         </div>
-        <h3>Tochi — Voice Gateway</h3>
+        <h3>Tochi — Voice-to-Task Gateway</h3>
         <p>
-          Hackathon application that converts speech — including Pidgin, Igbo, and Yoruba —
-          into text and automatically creates tasks from it. Built to make productivity
-          tools accessible to Nigerian users in their own languages.
+            Hackathon backend for a voice-first task app serving Nigerian users (Pidgin, Igbo,
+            Yoruba). Express/Prisma service handling device installation registration, rotating
+            JWT + refresh credentials, and bounded voice transcription requests — with audio
+            signature validation, per-installation quota &amp; concurrency limits, idempotency keys,
+            request-status polling, an admin kill-switch, and a pluggable transcription provider
+            layer backed by PostgreSQL.
         </p>
         <div class="tags">
-          <span class="tag">Speech-to-Text</span><span class="tag">NLP</span>
-          <span class="tag">Hackathon</span>
+            <span class="tag">Node.js</span><span class="tag">Express</span>
+            <span class="tag">TypeScript</span><span class="tag">Prisma ORM</span>
+            <span class="tag">PostgreSQL</span><span class="tag">JWT</span>
+            <span class="tag">Docker</span><span class="tag">Speech-to-Text</span>
         </div>
-      </article>
+        </article>
 
       <article class="project-card reveal">
         <div class="project-top">
