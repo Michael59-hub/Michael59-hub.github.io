@@ -1,290 +1,532 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Michael Okoronkwo — Backend Software Engineer</title>
-  <meta name="description" content="Backend engineer building production APIs, payment integrations, and async processing systems — with a pharmacologist's rigor for health-tech and data-intensive problems." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Michael Okoronkwo – Backend Engineer</title>
+  <meta name="description" content="Backend engineer building secure APIs, payment flows and async systems, with a pharmacology degree behind the domain knowledge.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Michael Okoronkwo – Backend Engineer">
+  <meta property="og:description" content="Backend engineer building secure APIs, payment flows and async systems, with a pharmacology degree behind the domain knowledge.">
+  <meta name="theme-color" content="#111a22">
 
-  <!-- ===== NAV ===== -->
-  <header class="nav" id="nav">
-    <a href="#home" class="logo">michael<span>.</span></a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Onest:wght@400..600&display=swap" rel="stylesheet">
+
+  <!-- Set the theme before first paint so there is no flash -->
+  <script>
+    (function () {
+      var theme = "dark";
+      try {
+        theme = localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --bg: #111a22;
+      --surface: #182632;
+      --raised: #1f3242;
+      --text: #e8eff3;
+      --muted: #9bb0bd;
+      --line: #2b3f4e;
+      --accent: #3b2dff;
+      --accent-ink: #1c0a13;
+      --ok: #4fd1b5;
+      --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --font-body: "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --wrap: 64rem;
+    }
+    :root[data-theme="light"] {
+      --bg: #f3f6f8;
+      --surface: #ffffff;
+      --raised: #e8eef2;
+      --text: #12202b;
+      --muted: #546775;
+      --line: #d3dde4;
+      --accent: #3b2dff;
+      --accent-ink: #ffffff;
+      --ok: #0b7a68;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      transition: background-color .25s, color .25s;
+    }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; margin: 0; }
+    p { margin: 0; }
+    ul, ol { list-style: none; margin: 0; padding: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+    .skip-link {
+      position: absolute; left: 1rem; top: -4rem; z-index: 20;
+      background: var(--accent); color: var(--accent-ink);
+      padding: .6rem 1rem; border-radius: 8px; font-weight: 600;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: .7rem 1.4rem; border-radius: 999px;
+      border: 1.5px solid var(--line);
+      font-weight: 600; text-decoration: none; font-size: 1rem; white-space: nowrap;
+      transition: border-color .2s, background-color .2s, transform .2s;
+    }
+    .btn:hover { border-color: var(--text); }
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { border-color: var(--accent); transform: translateY(-1px); filter: brightness(1.06); }
+    .btn-sm { padding: .45rem 1.05rem; font-size: .95rem; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap { display: flex; align-items: center; gap: 1.25rem; min-height: 4rem; }
+    .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-decoration: none; margin-right: auto; white-space: nowrap; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .98rem; }
+    .nav-links a:hover { color: var(--text); }
+    .theme-toggle {
+      display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--line); border-radius: 50%; cursor: pointer;
+    }
+    .theme-toggle:hover { border-color: var(--text); }
+    .theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 4.5rem 0 3.5rem; text-align: center; }
+    .hero-inner { display: flex; flex-direction: column; align-items: center; }
+    .avatar { width: 11rem; height: 11rem; margin-bottom: 1.75rem; }
+    .avatar-fill { fill: var(--surface); }
+    .avatar-mono { fill: var(--muted); font-family: var(--font-display); font-weight: 700; font-size: 54px; }
+    .avatar-ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; stroke-dasharray: 560; stroke-dashoffset: 0; }
+    .avatar-ring-inner { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-linejoin: round; }
+    @keyframes draw { from { stroke-dashoffset: 560; } to { stroke-dashoffset: 0; } }
+    .avatar-ring { animation: draw 1.4s cubic-bezier(.3, .6, .3, 1) both; }
+    .hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 700; letter-spacing: -.025em; }
+    .hero .lead { max-width: 38rem; margin-top: 1rem; color: var(--muted); font-size: 1.2rem; }
+    .credential {
+      margin-top: 1.5rem; padding: .4rem 1rem; border-radius: 999px;
+      border: 1.5px solid var(--accent); font-size: .95rem; font-weight: 500;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .85rem; margin-top: 2rem; }
+
+    /* ---------- Sections ---------- */
+    .section { padding: 5rem 0; }
+    .section-head { text-align: center; max-width: 36rem; margin: 0 auto 3.25rem; }
+    .section-head h2 { font-size: 1.05rem; color: var(--accent); font-weight: 600; font-family: var(--font-body); }
+    .section-head h3 { font-size: clamp(1.9rem, 4.5vw, 2.7rem); font-weight: 700; letter-spacing: -.02em; margin-top: .35rem; }
+    .section-head p { margin-top: .9rem; color: var(--muted); }
+
+    /* ---------- Experience timeline ---------- */
+    .timeline { max-width: 46rem; margin-inline: auto; }
+    .timeline li {
+      display: grid; grid-template-columns: 8rem 1fr; gap: 0 1.5rem;
+      position: relative; padding-bottom: 2.5rem;
+    }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline .when { color: var(--muted); font-weight: 500; padding-top: .2rem; text-align: right; }
+    .timeline .what { position: relative; padding-left: 1.75rem; border-left: 2px solid var(--line); }
+    .timeline li:last-child .what { border-left-color: transparent; }
+    .timeline .what::before {
+      content: ""; position: absolute; left: -7px; top: .5rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--bg); border: 3px solid var(--accent);
+    }
+    .timeline h4 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 650; margin: 0; }
+    .timeline .where { color: var(--muted); font-size: .98rem; margin-top: .1rem; }
+    .timeline .what p:not(.where) { margin-top: .6rem; }
+
+    /* ---------- Skills ---------- */
+    .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem; max-width: 52rem; margin-inline: auto; }
+    .skill-groups h4 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 650; margin: 0 0 .85rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .chips li {
+      padding: .3rem .8rem; border-radius: 999px; font-size: .93rem;
+      background: var(--surface); border: 1px solid var(--line);
+    }
+
+    /* ---------- Projects ---------- */
+    .projects-label { font-family: var(--font-display); font-size: 1.3rem; font-weight: 650; margin: 0 0 1.25rem; }
+    .features { display: grid; gap: 1.5rem; margin-bottom: 4rem; }
+    .feature {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 20px; padding: 2rem;
+    }
+    .status { display: inline-flex; align-items: center; gap: .5rem; font-size: .92rem; color: var(--muted); }
+    .status::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: var(--ok); }
+    .feature h4 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; letter-spacing: -.015em; margin: .5rem 0 .25rem; }
+    .feature .tagline { color: var(--muted); }
+    .facts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0; }
+    .facts li { padding: .25rem .7rem; border-radius: 6px; background: var(--raised); font-size: .92rem; font-weight: 500; }
+    .feature .about { max-width: 46rem; }
+    .feature .chips { margin-top: 1.25rem; }
+    .feature .chips li { background: transparent; }
+    .links { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+    .rows > li {
+      display: grid; grid-template-columns: 1fr auto; gap: .5rem 2rem; align-items: start;
+      padding: 1.5rem 0; border-top: 1px solid var(--line);
+    }
+    .rows > li:last-child { border-bottom: 1px solid var(--line); }
+    .rows h4 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 650; margin: 0; }
+    .rows .desc { color: var(--muted); margin-top: .25rem; max-width: 44rem; }
+    .rows .chips { margin-top: .85rem; }
+    .rows .row-link { font-weight: 600; padding-top: .2rem; }
+
+    /* ---------- Help ---------- */
+    .help-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem 3rem; max-width: 52rem; margin: 0 auto 3rem; }
+    .help-grid li { padding-left: 1.1rem; border-left: 3px solid var(--accent); }
+    .help-grid h4 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 650; margin: 0; }
+    .help-grid p { color: var(--muted); font-size: .98rem; margin-top: .2rem; }
+    .center-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .85rem; }
+
+    /* ---------- Socials ---------- */
+    .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 52rem; margin-inline: auto; }
+    .socials a {
+      display: flex; flex-direction: column; min-width: 14rem; padding: 1rem 1.4rem;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none;
+      transition: border-color .2s;
+    }
+    .socials a:hover { border-color: var(--accent); }
+    .socials .name { font-weight: 600; }
+    .socials .handle { color: var(--muted); font-size: .95rem; overflow-wrap: anywhere; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: .95rem; border-top: 1px solid var(--line); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .site-header .wrap { gap: .75rem; }
+      .brand { font-size: 1rem; }
+      .section { padding: 3.75rem 0; }
+      .timeline li { grid-template-columns: 1fr; }
+      .timeline .when { text-align: left; padding: 0 0 .35rem 1.75rem; }
+      .skill-groups, .help-grid { grid-template-columns: 1fr; }
+      .feature { padding: 1.5rem; }
+      .rows > li { grid-template-columns: 1fr; }
+      .socials a { min-width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .avatar-ring { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#home">Michael Okoronkwo</a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
-      <a href="mailto:michaelokoronkwo59@gmail.com" class="btn btn-small">Say Hello</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+      <a class="btn btn-primary btn-sm" href="mailto:michaelokoronkwo59@gmail.com">Get in touch</a>
+    </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="home">
-    <div class="hero-text reveal visible">
-      <p class="hero-eyebrow">Hi! I am</p>
-      <h1 class="hero-name">Michael Okoronkwo</h1>
-      <h2 class="hero-role">Backend Software Engineer</h2>
-      <p class="hero-sub">
-        I build production REST APIs, payment integrations, and async processing
-        systems — with a pharmacologist's rigor for health-tech and data-intensive problems.
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">See My Projects</a>
-        <a href="#contact" class="btn btn-ghost">Come Say Hi</a>
-      </div>
-    </div>
-    <div class="hero-photo reveal visible">
-      <img src="assets/photo.jpg" alt="Michael Okoronkwo" />
-      <div class="photo-badge">
-        <span class="dot"></span> Open to opportunities
-      </div>
-    </div>
-  </section>
+  <main id="main">
 
-  <!-- ===== EXPERIENCE ===== -->
-  <section class="section" id="experience">
-    <div class="section-head reveal">
-      <p class="section-eyebrow">My Experience</p>
-      <h2>A Story of Growth</h2>
-      <p class="section-sub">From pharmaceutical QA labs to shipping production backend systems.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-year">2025</div>
-        <div class="timeline-card">
-          <h3>Quality Assurance Intern — Emzor Pharmaceuticals</h3>
-          <p>
-            Supported QA processes for pharmaceutical manufacturing under strict regulatory
-            compliance. Learned the documentation discipline of a highly regulated industry —
-            habits I now bring to writing precise specs and well-tested software.
-          </p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-year">2025</div>
-        <div class="timeline-card">
-          <h3>Backend Engineer — OunjeFood</h3>
-          <p>
-            One of two backend engineers on a 7-person food-tech startup team. Shipped 30+
-            RESTful endpoints, built JWT auth from scratch, integrated Paystack payments,
-            fixed an order idempotency bug, and automated daily vendor payouts.
-          </p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-year">2026</div>
-        <div class="timeline-card">
-          <h3>What's Next?</h3>
-          <p>
-            Graduating with a BSc (Hons) Pharmacology and looking for backend roles in
-            health-tech, biotech, and data-intensive systems. What will I build next?
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="home">
+      <div class="wrap hero-inner">
+        <!-- Add your photo at assets/avatar.jpg. Until then, the monogram shows. -->
+        <svg class="avatar" viewBox="0 0 200 200" role="img" aria-label="Portrait of Michael Okoronkwo">
+          <defs>
+            <clipPath id="hex"><polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60"/></clipPath>
+          </defs>
+          <polygon class="avatar-fill" points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60"/>
+          <text class="avatar-mono" x="100" y="118" text-anchor="middle">MO</text>
+          <image id="avatar-img" x="30" y="20" width="140" height="160" preserveAspectRatio="xMidYMid slice" clip-path="url(#hex)"/>
+          <polygon class="avatar-ring-inner" points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60"/>
+          <polygon class="avatar-ring" points="100,8 179.7,54 179.7,146 100,192 20.3,146 20.3,54"/>
+        </svg>
 
-  <!-- ===== SKILLS ===== -->
-  <section class="section" id="skills">
-    <div class="section-head reveal">
-      <p class="section-eyebrow">My Skills</p>
-      <h2>Tools of the Trade</h2>
-      <p class="section-sub">What I reach for when building things that need to work.</p>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-group reveal">
-        <h3>Languages</h3>
-        <div class="pills">
-          <span class="pill">JavaScript</span><span class="pill">TypeScript</span>
-          <span class="pill">Python</span><span class="pill">PHP</span><span class="pill">SQL</span>
+        <h1>Hi! I am Michael</h1>
+        <p class="lead">Backend engineer building secure APIs, payment flows and async systems, with a pharmacology degree behind the domain knowledge.</p>
+        <p class="credential">BSc Pharmacology, First Class, 4.66 CGPA</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">See Projects</a>
+          <!-- Put your CV at assets/Michael_Okoronkwo_CV.pdf -->
+          <a class="btn" href="assets/Michael_Okoronkwo_CV.pdf" download>Download CV</a>
         </div>
       </div>
-      <div class="skill-group reveal">
-        <h3>Backend</h3>
-        <div class="pills">
-          <span class="pill">Node.js</span><span class="pill">Express.js</span>
-          <span class="pill">FastAPI</span><span class="pill">Redis</span>
-          <span class="pill">BullMQ</span><span class="pill">REST API Design</span>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section class="section" id="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>My Experience</h2>
+          <h3>A Story Of Growth</h3>
+          <p>From first lines of code to production APIs and a first-class degree.</p>
+        </div>
+
+        <ol class="timeline">
+          <li>
+            <span class="when">2020</span>
+            <div class="what">
+              <h4>Started Coding</h4>
+              <p>Wrote my first code and kept going, from small scripts to full backend services.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Jul – Sep 2025</span>
+            <div class="what">
+              <h4>Quality Assurance Intern</h4>
+              <p class="where">Emzor Pharmaceuticals, Lagos</p>
+              <p>Supported QA processes for pharmaceutical manufacturing under strict regulatory standards. The documentation habits I built there now shape how I write specs and tests.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Sep – Dec 2025</span>
+            <div class="what">
+              <h4>Backend Engineer</h4>
+              <p class="where">OunjeFood, Lagos</p>
+              <p>One of two backend engineers on a 7-person team. Shipped 30+ REST endpoints in Node.js and Express, including JWT authentication, order processing, Paystack payments and an automated daily vendor payout. Fixed a duplicate-order idempotency bug and an OTP delivery failure caused by an IP whitelist misconfiguration.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Jul 2026</span>
+            <div class="what">
+              <h4>Graduated with First Class Honours</h4>
+              <p class="where">BSc Pharmacology, Olabisi Onabanjo University</p>
+              <p>Finished with a 4.66 CGPA. Coursework in biochemistry, biostatistics and computational chemistry, plus the Pfizer "Molecule to Medicine" industry simulation programme.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Now</span>
+            <div class="what">
+              <h4>Open to backend roles</h4>
+              <p>What will I build next?</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section class="section" id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>My Skills</h2>
+          <h3>Some Stuff I Picked Up</h3>
+          <p>Most of my time goes into Node.js and TypeScript backends, with Python when the job calls for it.</p>
+        </div>
+
+        <div class="skill-groups">
+          <div>
+            <h4>Languages</h4>
+            <ul class="chips"><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>PHP</li></ul>
+          </div>
+          <div>
+            <h4>Backend</h4>
+            <ul class="chips"><li>Node.js</li><li>Express.js</li><li>FastAPI</li><li>REST API design</li><li>Redis</li><li>BullMQ</li></ul>
+          </div>
+          <div>
+            <h4>Databases</h4>
+            <ul class="chips"><li>PostgreSQL</li><li>MongoDB</li><li>Prisma ORM</li></ul>
+          </div>
+          <div>
+            <h4>Frontend</h4>
+            <ul class="chips"><li>React</li><li>Next.js</li><li>HTML</li><li>CSS</li></ul>
+          </div>
+          <div>
+            <h4>Tools and platforms</h4>
+            <ul class="chips"><li>Docker</li><li>Git and GitHub</li><li>Postman</li><li>Vercel</li></ul>
+          </div>
+          <div>
+            <h4>Scientific computing</h4>
+            <ul class="chips"><li>AutoDock Vina</li><li>RDKit</li><li>OpenBabel</li><li>Meeko</li><li>IBM SPSS</li></ul>
+          </div>
         </div>
       </div>
-      <div class="skill-group reveal">
-        <h3>Databases</h3>
-        <div class="pills">
-          <span class="pill">PostgreSQL</span><span class="pill">MongoDB</span>
-          <span class="pill">Prisma ORM</span>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section class="section" id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>My Projects</h2>
+          <h3>Cool Stuff I've Built</h3>
+          <p>Throughout my journey, I've built many things. Here are the notable ones.</p>
+        </div>
+
+        <h4 class="projects-label">Featured Projects</h4>
+        <div class="features">
+
+          <article class="feature">
+            <span class="status">In progress</span>
+            <h4>Tochi Voice Gateway</h4>
+            <p class="tagline">Voice transcription backend for a mobile app</p>
+            <ul class="facts">
+              <li>15-minute JWTs</li>
+              <li>Rotating refresh credentials</li>
+              <li>Idempotent requests</li>
+              <li>Per-device quotas</li>
+              <li>Swappable speech providers</li>
+            </ul>
+            <p class="about">I built the backend that turns short voice recordings into transcripts and draft tasks. Devices register with the service, receive short-lived JWTs with rotating refresh credentials, then upload audio that is checked by file signature, size and duration before it reaches a speech provider. Idempotency keys prevent duplicate processing, and per-installation quotas, concurrency limits and an admin kill switch keep cost and load under control.</p>
+            <ul class="chips">
+              <li>TypeScript</li><li>Node.js</li><li>Express.js</li><li>Prisma</li><li>PostgreSQL</li><li>Docker</li><li>Vitest</li>
+            </ul>
+            <div class="links">
+              <a class="btn btn-sm" href="https://github.com/Michael59-hub/tochi-voice-gateway" target="_blank" rel="noopener">View source</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <span class="status">Completed</span>
+            <h4>Virtual Drug Screening and Molecular Docking Microservice</h4>
+            <p class="tagline">Computational drug discovery tooling, built with pharmacology in mind</p>
+            <ul class="facts">
+              <li>About 20 seconds per docking job</li>
+              <li>Async job queue</li>
+              <li>Reproducible experiment history</li>
+              <li>Fully containerised</li>
+            </ul>
+            <p class="about">I built a virtual screening pipeline that pairs a Node.js and Express API gateway with a Python FastAPI compute service. Long docking jobs run through a Redis and BullMQ queue, with ligands and receptors prepared using RDKit, OpenBabel and Meeko and scored with AutoDock Vina. A PostgreSQL schema tracks jobs, ligand libraries and results so every experiment can be queried and reproduced.</p>
+            <ul class="chips">
+              <li>Node.js</li><li>Express.js</li><li>Python</li><li>FastAPI</li><li>Redis</li><li>BullMQ</li><li>PostgreSQL</li><li>Docker</li><li>AutoDock Vina</li>
+            </ul>
+            <div class="links">
+              <a class="btn btn-primary btn-sm" href="https://molecular-docking-frontend.vercel.app" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-sm" href="https://github.com/Michael59-hub/molecular-docking-microservice" target="_blank" rel="noopener">Backend source</a>
+              <a class="btn btn-sm" href="https://github.com/Michael59-hub/molecular-docking-frontend" target="_blank" rel="noopener">Frontend source</a>
+            </div>
+          </article>
+        </div>
+
+        <h4 class="projects-label">Other Projects</h4>
+        <ul class="rows">
+          <li>
+            <div>
+              <h4>Buoyant</h4>
+              <p class="desc">Full-stack e-commerce application with product and inventory management, server-side rendering and a type-safe Prisma data layer.</p>
+              <ul class="chips"><li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li></ul>
+            </div>
+            <a class="row-link" href="https://github.com/Michael59-hub/Buoyant" target="_blank" rel="noopener">View source</a>
+          </li>
+          <!-- EDIT: add a repo link to MedLink when it is public, or delete this item. -->
+          <li>
+            <div>
+              <h4>MedLink</h4>
+              <p class="desc">Pharmacy marketplace and medication refill engine, currently in progress.</p>
+              <ul class="chips"><li>Node.js</li><li>Express.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li></ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== How I can help ===== -->
+    <section class="section" id="help">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How I Can Help</h2>
+          <h3>Why Hire Me</h3>
+          <p>I write backend code that is documented, tested and ready to deploy, and I'm comfortable in regulated, data-heavy domains like health-tech and biotech.</p>
+        </div>
+
+        <ul class="help-grid">
+          <li><h4>REST API development</h4><p>Clear, well-structured endpoints in Node.js and Express.</p></li>
+          <li><h4>Authentication</h4><p>JWT auth, refresh-credential rotation and secure session handling.</p></li>
+          <li><h4>Payment integration</h4><p>Paystack checkouts, wallets and automated vendor payouts.</p></li>
+          <li><h4>Background processing</h4><p>Queues and workers with Redis and BullMQ for long-running jobs.</p></li>
+          <li><h4>Database design</h4><p>PostgreSQL schemas and Prisma migrations built for real queries.</p></li>
+          <li><h4>Health-tech and biotech tooling</h4><p>Pharmacology and computational chemistry knowledge applied to backend systems.</p></li>
+        </ul>
+
+        <div class="center-actions">
+          <a class="btn btn-primary" href="mailto:michaelokoronkwo59@gmail.com">Send me an email</a>
+          <a class="btn" href="assets/Michael_Okoronkwo_CV.pdf" download>Download CV</a>
         </div>
       </div>
-      <div class="skill-group reveal">
-        <h3>Frontend</h3>
-        <div class="pills">
-          <span class="pill">React</span><span class="pill">Next.js</span>
-          <span class="pill">HTML</span><span class="pill">CSS</span>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>My Socials</h2>
+          <h3>Come Say Hi</h3>
+          <p>Whether it's a role, a project or just a chat, reach out.</p>
         </div>
+
+        <ul class="socials">
+          <li>
+            <a href="https://github.com/Michael59-hub" target="_blank" rel="noopener">
+              <span class="name">GitHub</span><span class="handle">@Michael59-hub</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/michaelokoronkwo-520969202" target="_blank" rel="noopener">
+              <span class="name">LinkedIn</span><span class="handle">michaelokoronkwo</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:michaelokoronkwo59@gmail.com">
+              <span class="name">Email</span><span class="handle">michaelokoronkwo59@gmail.com</span>
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="skill-group reveal">
-        <h3>Infrastructure &amp; Tools</h3>
-        <div class="pills">
-          <span class="pill">Docker</span><span class="pill">Git/GitHub</span>
-          <span class="pill">Postman</span><span class="pill">Vercel</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>Scientific Computing</h3>
-        <div class="pills">
-          <span class="pill">AutoDock Vina</span><span class="pill">RDKit</span>
-          <span class="pill">OpenBabel</span><span class="pill">Meeko</span>
-          <span class="pill">IBM SPSS</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- ===== PROJECTS ===== -->
-  <section class="section" id="projects">
-    <div class="section-head reveal">
-      <p class="section-eyebrow">My Projects</p>
-      <h2>Things I've Built</h2>
-      <p class="section-sub">A mix of production systems, scientific tooling, and things I made for the love of it.</p>
-    </div>
-
-    <h3 class="projects-label reveal">Featured Projects</h3>
-    <div class="featured-grid">
-      <a class="project-card featured reveal" href="https://molecular-docking-frontend.vercel.app/" target="_blank" rel="noopener">
-        <div class="stat-pills">
-          <span class="pill pill-status">Live</span>
-          <span class="pill pill-stat">~20s Avg Job</span>
-          <span class="pill pill-stat">Async Queue</span>
-          <span class="pill pill-stat">Containerized</span>
-        </div>
-        <div class="project-title-row">
-          <h3>Virtual Drug Screening &amp; Molecular Docking Microservice</h3>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>
-        </div>
-        <div class="pills">
-          <span class="pill pill-tech">Node.js</span><span class="pill pill-tech">FastAPI</span>
-          <span class="pill pill-tech">Redis/BullMQ</span><span class="pill pill-tech">PostgreSQL</span>
-          <span class="pill pill-tech">Docker</span><span class="pill pill-tech">AutoDock Vina</span>
-        </div>
-        <p>
-          A full-stack virtual screening pipeline pairing a Node.js/Express API gateway with a
-          Python/FastAPI compute service. Redis/BullMQ queues long-running docking jobs processed
-          by containerized workers running AutoDock Vina, RDKit, OpenBabel, and Meeko — with a
-          PostgreSQL schema for reproducible, queryable experiment history. Where my pharmacology
-          degree meets my backend engineering.
-        </p>
-      </a>
-
-      <a class="project-card featured reveal" href="https://github.com/Michael59-hub/tochi-voice-gateway" target="_blank" rel="noopener">
-        <div class="stat-pills">
-          <span class="pill pill-status status-progress">In Progress</span>
-          <span class="pill pill-stat">15-min JWTs</span>
-          <span class="pill pill-stat">Idempotency Keys</span>
-          <span class="pill pill-stat">Quota Limits</span>
-        </div>
-        <div class="project-title-row">
-          <h3>Tochi — Voice-to-Task Gateway</h3>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>
-        </div>
-        <div class="pills">
-          <span class="pill pill-tech">Node.js</span><span class="pill pill-tech">Express</span>
-          <span class="pill pill-tech">TypeScript</span><span class="pill pill-tech">Prisma ORM</span>
-          <span class="pill pill-tech">PostgreSQL</span><span class="pill pill-tech">Docker</span>
-        </div>
-        <p>
-          Hackathon backend for a voice-first task app built for Nigerian users. An Express/Prisma
-          service handling device registration, rotating JWT + refresh credentials, and bounded
-          voice transcription — with audio signature validation, per-installation quota and
-          concurrency limits, idempotency keys, request-status polling, an admin kill-switch, and
-          a pluggable transcription provider layer.
-        </p>
-      </a>
-    </div>
-
-    <h3 class="projects-label reveal">Other Projects</h3>
-    <div class="other-grid">
-      <a class="project-card reveal" href="https://github.com/Michael59-hub/veranda" target="_blank" rel="noopener">
-        <div class="stat-pills">
-          <span class="pill pill-status status-progress">In Progress</span>
-          <span class="pill pill-stat">Zero Middlemen</span>
-        </div>
-        <div class="project-title-row">
-          <h3>Veranda</h3>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>
-        </div>
-        <div class="pills">
-          <span class="pill pill-tech">Next.js</span><span class="pill pill-tech">TypeScript</span>
-        </div>
-        <p>
-          A web app tackling Nigeria's housing problem by connecting renters directly to
-          landlords — cutting out middlemen and making the search transparent.
-        </p>
-      </a>
-
-      <a class="project-card reveal" href="https://github.com/Michael59-hub/Buoyant" target="_blank" rel="noopener">
-        <div class="stat-pills">
-          <span class="pill pill-status">Completed</span>
-          <span class="pill pill-stat">Full-Stack</span>
-        </div>
-        <div class="project-title-row">
-          <h3>Buoyant — E-Commerce Platform</h3>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>
-        </div>
-        <div class="pills">
-          <span class="pill pill-tech">Next.js</span><span class="pill pill-tech">TypeScript</span>
-          <span class="pill pill-tech">Prisma ORM</span><span class="pill pill-tech">PostgreSQL</span>
-        </div>
-        <p>
-          A full-stack e-commerce application built end-to-end — PostgreSQL schema design via
-          Prisma, server-side rendering with the App Router, and type-safe components with
-          product and inventory management.
-        </p>
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT / SOCIALS ===== -->
-  <section class="section" id="contact">
-    <div class="section-head reveal">
-      <p class="section-eyebrow">My Socials</p>
-      <h2>Come Say Hi</h2>
-      <p class="section-sub">Whether it's a job opportunity or just tech chat, my inbox is open.</p>
-    </div>
-    <div class="socials-list reveal">
-      <a href="https://github.com/Michael59-hub" target="_blank" rel="noopener" class="social-item">
-        <span class="social-name">GitHub</span><span class="social-handle">@Michael59-hub</span>
-      </a>
-      <a href="https://linkedin.com/in/michaelokoronkwo-520969202" target="_blank" rel="noopener" class="social-item">
-        <span class="social-name">LinkedIn</span><span class="social-handle">/in/michaelokoronkwo</span>
-      </a>
-      <a href="mailto:michaelokoronkwo59@gmail.com" class="social-item">
-        <span class="social-name">Email</span><span class="social-handle">michaelokoronkwo59@gmail.com</span>
-      </a>
-      <a href="tel:+2347030171460" class="social-item">
-        <span class="social-name">Phone</span><span class="social-handle">+234 703 017 1460</span>
-      </a>
-      <span class="social-item">
-        <span class="social-name">Location</span><span class="social-handle">Lagos, Nigeria</span>
-      </span>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>© <span id="year"></span> Michael Okoronkwo. All Rights Reserved</p>
+  <footer class="site-footer">
+    <div class="wrap">© <span id="year">2026</span> Michael Okoronkwo. All rights reserved.</div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      document.getElementById("theme-toggle").addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+      });
+      // Only show the photo if assets/avatar.jpg exists; otherwise the monogram stays.
+      var probe = new Image();
+      probe.onload = function () { document.getElementById("avatar-img").setAttribute("href", "assets/avatar.jpg"); };
+      probe.src = "assets/avatar.jpg";
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
 </html>
